@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Example</title>
+</head>
+<body>
+<h1>CORS Example</h1>
+<div id="result"></div>
+
+<script>
+    fetch('/api/echo')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+</body>
+</html>

@@ -16,8 +16,6 @@ Parameters:
 
 Globals:
   Api:
-    Auth:
-      AddApiKeyRequiredToCorsPreflight: false
     Cors:
       AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
       AllowHeaders: "'Authorization,Content-Type,X-Api-Key'"
@@ -227,6 +225,9 @@ Resources:
               method.response.header.ETag: integration.response.header.ETag
 
 Outputs:
+  BucketName:
+    Description: Name of the bucket used to host ui assets
+    Value: !Ref Bucket
   AppUiURL:
     Description: UI endpoint URL
     Value: !Sub >-
