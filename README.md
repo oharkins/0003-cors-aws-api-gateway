@@ -1,4 +1,4 @@
-# Understanding CORS and How Requests Stack Up When Using a Separate Domain for Your Site's API
+# Use AWS API Gateway to avoid Stacking CORS Requests
 
 Cross-Origin Resource Sharing (CORS) is a mechanism that allows many resources (e.g., fonts, JavaScript, etc.) on a web 
 page to be requested from another domain outside the domain from which the resource originated. If you're developing a 
