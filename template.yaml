@@ -9,6 +9,7 @@ Parameters:
   BucketName:
     Type: String
     Description: Name of the bucket used to host ui assets
+    Default: sop-example
   DomainName:
     Type: String
     Description: Domain name to use for the API Gateway
