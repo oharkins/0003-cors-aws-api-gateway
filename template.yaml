@@ -61,7 +61,7 @@ Resources:
       HostedZoneId: !Ref HostedZoneId
       Name: !Sub cors.${DomainName}
       Type: CNAME
-      TTL: 3600
+      TTL: "3600"
       ResourceRecords:
         - !GetAtt ApiGatewayDomainName.DistributionDomainName
 
@@ -77,6 +77,8 @@ Resources:
           Name: AWS::Include
           Parameters:
             Location: ./openapi.yaml
+      EndpointConfiguration:
+        Type: REGIONAL
   UiApi:
     Type: AWS::ApiGateway::RestApi
     Properties:
@@ -110,10 +112,7 @@ Resources:
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
-      BucketName:
-        Fn::Sub:
-          - ${BucketName}-${AWS::Region}
-          - BucketName: cors-ui
+      BucketName: !Sub ${BucketName}-${AWS::Region}-cors-ui
       WebsiteConfiguration:
         ErrorDocument: index.html
         IndexDocument: index.html
@@ -232,3 +231,7 @@ Outputs:
     Description: UI endpoint URL
     Value: !Sub >-
       https://${UiApi}.execute-api.${AWS::Region}.amazonaws.com/v1/
+  AppURL:
+    Description: UI endpoint URL
+    Value: !Sub >-
+      https://${Api}.execute-api.${AWS::Region}.amazonaws.com/v1/
