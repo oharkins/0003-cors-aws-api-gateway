@@ -11,8 +11,11 @@ Parameters:
     Description: Name of the bucket used to host ui assets
   DomainName:
     Type: String
+    Description: Domain name to use for the API Gateway
+    Default: sop-example.com
   HostedZoneId:
     Type: String
+    Description: Hosted zone id for the domain name
 
 Globals:
   Api:
@@ -26,16 +29,16 @@ Resources:
   APICertificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: !Sub cors.${DomainName}
+      DomainName: !Sub ${DomainName}
       ValidationMethod: DNS
       DomainValidationOptions:
-        - DomainName: !Sub cors.${DomainName}
+        - DomainName: !Sub ${DomainName}
           HostedZoneId: !Ref HostedZoneId
 
   ApiGatewayDomainName:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      DomainName: !Sub cors.${DomainName}
+      DomainName: !Sub ${DomainName}
       CertificateArn: !Ref APICertificate
 
   ApiBasePathMapping:
@@ -57,7 +60,7 @@ Resources:
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneId: !Ref HostedZoneId
-      Name: !Sub cors.${DomainName}
+      Name: !Sub ${DomainName}
       Type: CNAME
       TTL: "3600"
       ResourceRecords:
@@ -80,7 +83,6 @@ Resources:
   UiApi:
     Type: AWS::ApiGateway::RestApi
     Properties:
-      Name: cors-ui
       BinaryMediaTypes:
         - '*/*'
       EndpointConfiguration:
