@@ -21,10 +21,36 @@ Globals:
   Api:
     Cors:
       AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
-      AllowHeaders: "'Authorization,Content-Type,X-Api-Key'"
-      AllowOrigin: "'*'"
+      AllowHeaders: "'Content-Type'"
+      AllowOrigin: !Sub "'${DomainName}'"
 
 Resources:
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub ${AWS::StackName}-api
+      StageName: v1
+      Auth:
+        DefaultAuthorizer: NONE
+        AddDefaultAuthorizerToCorsPreflight: false
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: ./openapi.yaml
+      EndpointConfiguration:
+        Type: REGIONAL
+
+  UiApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub ${AWS::StackName}-ui
+      Description: UI API
+      BinaryMediaTypes:
+        - '*/*'
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
 
   APICertificate:
     Type: AWS::CertificateManager::Certificate
@@ -51,6 +77,8 @@ Resources:
 
   UiApiBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
+    DependsOn:
+      - Deployment
     Properties:
       DomainName: !Ref ApiGatewayDomainName
       RestApiId: !Ref UiApi
@@ -65,29 +93,6 @@ Resources:
       TTL: "3600"
       ResourceRecords:
         - !GetAtt ApiGatewayDomainName.DistributionDomainName
-
-  Api:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: v1
-      Auth:
-        DefaultAuthorizer: NONE
-        AddDefaultAuthorizerToCorsPreflight: false
-      DefinitionBody:
-        Fn::Transform:
-          Name: AWS::Include
-          Parameters:
-            Location: ./openapi.yaml
-      EndpointConfiguration:
-        Type: REGIONAL
-  UiApi:
-    Type: AWS::ApiGateway::RestApi
-    Properties:
-      BinaryMediaTypes:
-        - '*/*'
-      EndpointConfiguration:
-        Types:
-          - REGIONAL
 
   Deployment:
     DependsOn:

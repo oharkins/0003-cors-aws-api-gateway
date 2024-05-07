@@ -11,7 +11,8 @@
     fetch('/api/echo')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+            const formattedJson = JSON.stringify(data, null, 2);
+            document.getElementById('result').innerHTML = `<pre>${formattedJson}</pre>`;
         })
         .catch(error => {
             console.error('Error:', error);

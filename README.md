@@ -31,4 +31,4 @@ actual request from being sent.
 
 ### Requests Stack Up with Separate Domain for API
 
-aws s3 cp ./ui/index.html s3://my-bucket/index.html
+aws s3 cp ./ui/index.html s3://sop-demo-us-east-1-cors-ui/index.html
