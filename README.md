@@ -82,7 +82,7 @@ The API Gateway endpoints API will be displayed in the outputs when the deployme
 
 Final step is to upload the index.html file to the S3 bucket created in the deployment. You can do this with the following command:
 ```bash
-aws s3 cp ./ui/index.html s3://<BucketName>/index.html
+aws s3 cp ./index.html s3://<BucketName>/index.html
 ```
 
 ### Testing the application
