@@ -81,11 +81,22 @@ The first command will build the source of your application. The second command 
 The API Gateway endpoints API will be displayed in the outputs when the deployment is complete.
 
 Final step is to upload the index.html file to the S3 bucket created in the deployment. You can do this with the following command:
-```
+```bash
 aws s3 cp ./ui/index.html s3://<BucketName>/index.html
 ```
 
+### Testing the application
 
+You can test the application by opening your browser and navigating to the domain name you provided in the deployment. 
+You should see a simple web page with a button that makes a request to the API Gateway endpoint. 
+If everything is set up correctly, you should see a response from the API displayed on the web page.
+
+### Cleaning up
+To remove all resources created by the AWS SAM CLI, you can run the following command:
+
+```bash
+sam delete
+```
 
 
 
