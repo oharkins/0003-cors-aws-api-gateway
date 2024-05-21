@@ -52,7 +52,9 @@ potential performance issues. In this example, we will use AWS Lambda, Amazon AP
 web application and its API under the same domain. It uses cloud formation to deploy the resources and the AWS SAM CLI to
 deploy the application.
 
-### Deploy the sample application
+# Deploy using the SAM CLI
+## Clone/fork the repository
+Clone or fork this repository and push it to your own GitHub account.
 
 The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.
 
@@ -98,6 +100,13 @@ To remove all resources created by the AWS SAM CLI, you can run the following co
 sam delete
 ```
 
+# Deploy in your account using the included GitHub workflows
+## Clone/fork the repository
+Clone or fork this repository and push it to your own GitHub account.
 
+## Setup GitHub environment
+1. Create an GitHub environment named *sandbox*
+1. Add your Pipeline Execution Role (PIPELINE_EXECUTION_ROLE), CloudFormation Execution Role (CLOUDFORMATION_EXECUTION_ROLE) and a target S3 bucket name for the artifacts (ARTIFACTS_BUCKET_NAME) as secrets. Here is an explanation by [Chris Ebert](https://twitter.com/realchrisebert) on how to set this up.
 
-
+## Run Deployment
+In the Actions in GitHub you can select the *Deploy to Sandbox* Workflow. There will be a button to *Run workflow* where you can now select the branch you wish to deploy.

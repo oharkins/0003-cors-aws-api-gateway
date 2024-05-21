@@ -1,0 +1,30 @@
+version: 0.1
+default:
+  build:
+    parameters:
+      cached: 'true'
+      parallel: 'true'
+
+sandbox:
+  deploy:
+    parameters:
+      parameter_overrides:
+        - "HostedZoneId=<your-hostedID>" # fill in with your desired hosted zone
+        - "BucketName=sop-demo" # fill in with your desired name
+        - "DomainName=sop.example.com" #Fill this in with your domain name.
+
+qa:
+  deploy:
+    parameters:
+      parameter_overrides:
+        - "HostedZoneId=<your-hostedID>" # fill in with your desired hosted zone
+        - "BucketName=sop-demo" # fill in with your desired name
+        - "DomainName=sop.example.com" #Fill this in with your domain name.
+
+prod:
+  deploy:
+    parameters:
+      parameter_overrides:
+        - "HostedZoneId=<your-hostedID>" # fill in with your desired hosted zone
+        - "BucketName=sop-demo" # fill in with your desired name
+        - "DomainName=sop.example.com" #Fill this in with your domain name.
